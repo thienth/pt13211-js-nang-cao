@@ -1,0 +1,36 @@
+.atmp{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 5px 0 5px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: green;
+}
+.bangchucai{
+    margin-top: 20px;
+}
+.bcctmp{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 0 5px 0 5px;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: grey;
+}
+.the_wheel{
+    background-image: url(./wheel_back.png);
+    background-repeat: no-repeat;
+    background-position-y: -22px;
+    background-position-x: -2px;
+}
+#canvas{
+    margin-top: 50px;
+}

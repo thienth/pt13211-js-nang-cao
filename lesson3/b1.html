@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .child{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+        
+    </div>
+    <script>
+        
+        var arr = [0,1,2,3,4,5,6,7,8,9];
+        function drawParent(inputarr){
+            // nội dung mới sẽ được sinh ra
+            var content = ``;
+
+            // tạo nội dung dựa vào phần tử của mảng đc truyền vào
+            inputarr.map(function(value, index){
+
+                content+= `<div class="child" onclick="removeEl(${index})">
+                                <span>${value}</span>
+                            </div>`;
+            });
+            var parent = document.querySelector("#parent");
+            // xóa trắng thẻ cha
+            parent.innerHTML = '';
+            // đưa nội dung đã chuẩn bị vào thẻ cha
+            parent.innerHTML = content;
+        }
+
+        function removeEl(index){
+            // xóa phần tử khỏi mảng gốc với index truyền vào
+            arr.splice(index, 1);
+            console.log(arr);
+            // vẽ lại nội dung cho thẻ cha
+            drawParent(arr);
+        }
+
+        drawParent(arr);
+
+
+    </script>
+</body>
+</html>

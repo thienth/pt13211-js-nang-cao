@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <input type="password"><button>Show</button>
+    <br>
+    <input type="password"><button>Show</button>
+    <br>
+    <input type="password"><button>Show</button>
+    <br>
+    <input type="password"><button>Show</button>
+    <br>
+    <input type="password"><button>Show</button>
+    <br>
+    <input type="password"><button>Show</button>
+    <br>
+    <script src="jquery.min.js"></script>
+    <script>
+        $('button').on('click', function() {
+            // debugger;
+            if($(this).text() == 'Show'){
+                $(this).prev().attr('type', 'text');
+                $(this).text('Hide');
+            }else{
+                $(this).prev().attr('type', 'password');
+                $(this).text('Show');
+            }
+        });    
+    </script>
+</body>
+</html>

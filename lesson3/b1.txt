@@ -1,0 +1,6 @@
+cho mảng arr = [0,1,2,3,4,5,6,7,8,9];
+Dùng js tạo ra 10 thẻ div trên màn hình dài rộng = 50px
+nội dung trong các thẻ sẽ đánh số index
+các thẻ trên nhận sự kiện khi click vào thẻ nào thì xóa thẻ đó khỏi 
+màn hình và đồng thời xóa luôn số index vừa đc lick khỏi mảng số ban đầu
+console.log mảng ra 
