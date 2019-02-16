@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="public/bootstrap/css/bootstrap.min.css">
+    <style>
+        .hide{
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="parent">
+        <button onclick="addAttribute()">Thêm thuộc tính</button>
+        <div id="template" class="hide">
+            <h2>Thuộc tính</h2>
+            <input type="text" name="" id="attributename" >
+            <br>
+            <input type="text" name="" id="attributevalue">
+            <button onclick="setupAttribute(event.target)">Lưu</button>
+        </div>
+    </div>
+
+    <table class="table table-stripped">
+        <thead id="tablehead">
+        </thead>
+        <tbody id="attributeContent">
+
+        </tbody>
+    </table>
+
+
+    <script src="public/jquery.min.js"></script>
+    <script src="public/lodash.js"></script>
+    <script>
+        var totalAttSet = 1;
+        var attributeSet = [
+            // {
+            //     name: 'color',
+            //     valueSet: [
+            //         {
+            //             value: 'Xanh',
+            //             price: 0,
+            //             quantity: 0
+            //         },
+            //         {
+            //             value: 'Đỏ',
+            //             price: 0,
+            //             quantity: 0
+            //         },
+            //         {
+            //             value: 'Tím',
+            //             price: 0,
+            //             quantity: 0
+            //         }
+            //     ]
+            // }
+        ];
+        function addAttribute(){
+            if(totalAttSet >= 3){
+                return false;
+            }
+            var content = $('#template').clone();
+            content.removeClass('hide');
+            $('#parent').append(content);
+            totalAttSet++;
+        }
+
+        function setupAttribute(el){
+            var attName = $(el).parent().find('input#attributename').val();
+            var attValues = $(el).parent().find('input#attributevalue').val();
+            
+            if(!_.find(attributeSet, {name: attName})){
+                var setValue = attValues.split(',');
+
+                var attrItem = {
+                    name: attName,
+                    valueSet: []
+                }
+                _.forEach(setValue, (value) => {
+                    attrItem.valueSet.push({
+                        value: value,
+                        quantity: 0,
+                        price: 0
+                    })
+                });
+
+                attributeSet.push(attrItem);
+                console.log(attributeSet);
+            }
+
+            drawingTable();
+        }
+
+        function drawingTable(){
+            // vẽ header của table
+            var tr = document.createElement('tr');
+            var thattr1 = document.createElement('th');
+            thattr1.innerText = attributeSet[0].name;
+            tr.appendChild(thattr1);
+
+            if(totalAttSet > 2){
+                var thattr4 = document.createElement('th');
+                thattr4.innerText = attributeSet[1].name;
+                tr.appendChild(thattr4);
+                
+            }
+            
+            var thattr2 = document.createElement('th');
+            thattr2.innerText = 'Giá';
+            tr.appendChild(thattr2);
+
+            
+            var thattr3 = document.createElement('th');
+            thattr3.innerText = 'Số lượng';
+            tr.appendChild(thattr3);
+            $('#tablehead').empty();
+            document.querySelector('#tablehead').appendChild(tr);
+            
+            // vẽ 1 thuộc tính
+            if(totalAttSet < 3){
+                $('#attributeContent').empty();
+                _.forEach(attributeSet, (val, key) => {
+                    _.forEach(val.valueSet, (attrV, key) => {
+                        var tr = document.createElement('tr');
+                        var td = document.createElement('td');
+                        td.innerText = attrV.value;
+                        tr.appendChild(td);
+
+                        var td = document.createElement('td');
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('value', attrV.price);
+                        td.appendChild(input);
+                        tr.appendChild(td);  
+
+                        var td = document.createElement('td');
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('value', attrV.quantity);
+                        td.appendChild(input);
+                        tr.appendChild(td);     
+                        document.querySelector('#attributeContent').appendChild(tr);
+                    })
+                });                                
+            }else{
+                // vẽ 2 thuộc tính
+                $('#attributeContent').empty();
+                var attribute1 = attributeSet[0];
+                var attribute2 = attributeSet[1];
+                _.forEach(attribute1.valueSet, (attrV, key) => {
+                    var tr = document.createElement('tr');
+                    var td = document.createElement('td');
+                    td.setAttribute('rowspan', attribute2.valueSet.length);
+                    td.innerText = attrV.value;
+                    tr.appendChild(td);
+
+                    _.forEach(attribute2.valueSet, (option) => {
+                        var td = document.createElement('td');
+                        td.innerText = option.value;
+                        tr.appendChild(td);
+
+                        var td = document.createElement('td');
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('value', attrV.price);
+                        td.appendChild(input);
+                        tr.appendChild(td);  
+
+                        var td = document.createElement('td');
+                        var input = document.createElement('input');
+                        input.setAttribute('type', 'text');
+                        input.setAttribute('value', attrV.quantity);
+                        td.appendChild(input);
+                        tr.appendChild(td);                             
+                    })
+                    document.querySelector('#attributeContent').appendChild(tr);
+                })
+            }
+
+            
+            
+        
+            
+            
+            
+
+
+        }
+
+        
+    </script>
+</body>
+</html>

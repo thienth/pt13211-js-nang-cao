@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div style="width: 40px; height: 40px; background: green;"></div>
+    <button>Click me</button>
+    <script src="jquery.min.js"></script>
+    <script>
+        // show
+        // hide
+        // toggle
+        // slideUp
+        // slideDown
+        // slideToggle
+        // fadeIn
+        // fadeOut
+        // setInterval
+        var left2Right = true;
+        var margin = 0;
+        $('button').click(function(){
+            var screenWidth = $('body').width();
+            setInterval(function(){
+                if($('div').width() + margin >= screenWidth){
+                    left2Right = false;
+                }
+                if(margin <= 0){
+                    left2Right = true;
+                }
+                if(left2Right == true){
+                    $('div').css('margin-left', ++margin);
+                }else{
+                    $('div').css('margin-left', --margin);
+                }
+
+            }, 10);
+            
+            
+        })
+    </script>
+</body>
+</html>
