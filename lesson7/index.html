@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+            min-height: 1000px;
+        }
+    </style>
+</head>
+<body>
+    
+    <script src="jquery.min.js"></script>
+    <script>
+    $('body').click(function(e){
+        // lấy tọa độ của điểm click chuột
+        var xDim = e.clientX;
+        var yDim = e.clientY;
+        // tạo 1 div 
+        createDiv(xDim, yDim);
+        
+        
+    });
+
+    function createDiv(x, y){
+        let div = document.createElement('div');
+        // set style để div ở đúng tạo độ
+        $(div).css('background', 'green');
+        $(div).css('position', 'fixed');
+        $(div).css('width', '40px');
+        $(div).css('height', '40px');
+        $(div).css('top', y+'px');
+        $(div).css('left', x+'px');
+        $('body').append(div);
+        // làm div chuyển động
+        let intv = setInterval(function(){
+            x++;
+            if( x > parseInt($('body').width()) + 30){
+                clearInterval(intv);
+                $(div).remove();
+            }
+            $(div).css('left', x+'px');
+        }, 10);
+    }
+    </script>
+</body>
+</html>
