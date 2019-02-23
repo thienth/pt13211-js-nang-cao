@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dự báo thời tiết</title>
+    <style>
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="city">
+    <button id="search">Search</button>
+    <h2 id="loading" class="hide">Loading...</h2>
+    <h2 id="cityname"></h2>
+    <p>Nhiệt độ: <span id="temp"></span></p>
+    <p>Độ ẩm: <span id="humidity"></span></p>
+    <p>Tầm nhìn xa: <span id="view"></span></p>
+
+
+    <script src="jquery.min.js"></script>
+    <script>
+        $("#search").click(function(){
+            var cityname = $('#city').val();
+            var apikey = '104f298a8d04f8f4c48d0553479b3b7e';
+            var apiUrl = 'http://api.openweathermap.org/data/2.5/weather';
+            var data = {
+                apikey: apikey,
+                q: cityname,
+                units: 'metric'
+            }
+
+            $.ajax({
+                url: apiUrl,
+                method: 'GET',
+                data: data,
+                dataType: 'JSON',
+                beforeSend: function(){
+                    $('#loading').removeClass('hide');
+                },
+                success: function(rp){
+                    $('#cityname').text(cityname + ", " + rp.sys.country);
+                    $('#temp').text(rp.main.temp);
+                    $('#humidity').text(rp.main.humidity + '%');
+                    $('#view').text(rp.visibility/1000 + 'km');
+                },
+                error: function(){
+                    alert('Thành phố không tồn tại');
+                },
+                complete: function(){
+                    $('#loading').addClass('hide');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
